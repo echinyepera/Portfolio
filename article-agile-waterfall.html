@@ -1,236 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A practical guide to choosing between Agile and Waterfall methodologies for Information Systems projects based on project scope, requirements, and organizational culture.">
-    <title>Bridging the Gap: Agile and Waterfall in IS Projects | Edwell Chinyepera</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A practical guide to choosing between Agile and Waterfall methodologies for Information Systems projects based on project scope, requirements, and organizational culture." />
+    <meta name="author" content="Edwell Chinyepera" />
+    <title>Agile vs Waterfall in IS Projects | Edwell Chinyepera</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #60a5fa;
+            --text-dark: #111827;
+            --text-muted: #4b5563;
+            --text-light: #6b7280;
+            --bg-white: #ffffff;
+            --bg-gray: #f9fafb;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.7;
-            color: #1f2937;
-            background: #f9fafb;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            scroll-behavior: smooth;
         }
-        
-        /* Header Navigation */
-        header {
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        nav {
-            max-width: 1200px;
+
+        /* Premium Article Container */
+        .article-premium {
+            max-width: 880px;
             margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 2rem 1.5rem 4rem;
         }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1a5d3c;
-            text-decoration: none;
+
+        /* Hero Section */
+        .article-hero {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .nav-links a {
-            color: #4b5563;
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #1a5d3c;
-        }
-        
-        /* Article Container */
-        .article-container {
-            max-width: 850px;
-            margin: 100px auto 60px;
-            padding: 0 2rem;
-        }
-        
-        /* Article Header */
-        .article-header {
-            margin-bottom: 2rem;
-        }
-        
+
         .article-category {
             display: inline-block;
-            background: #e0e7ff;
-            color: #1a5d3c;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
         }
-        
-        .article-header h1 {
-            font-size: 2.5rem;
+
+        .article-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 700;
-            color: #111827;
+            line-height: 1.2;
+            color: var(--text-dark);
             margin-bottom: 1rem;
-            line-height: 1.3;
+            letter-spacing: -0.02em;
         }
-        
+
         .article-meta {
             display: flex;
-            gap: 1.5rem;
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            justify-content: center;
+            gap: 2rem;
             flex-wrap: wrap;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 1rem;
         }
-        
+
         .article-meta span i {
-            margin-right: 0.3rem;
+            margin-right: 0.4rem;
+            color: var(--primary);
         }
-        
-        .article-featured-image {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #1a5d3c, #0d3b24);
-            border-radius: 16px;
-            margin-bottom: 2rem;
+
+        .article-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            margin: 1.5rem auto 0;
+        }
+
+        /* Featured Image */
+        .featured-image {
+            margin: 2rem 0;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            min-height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.2rem;
+            position: relative;
         }
-        
+
+        .featured-image-content {
+            text-align: center;
+            padding: 3rem;
+            color: white;
+        }
+
+        .featured-image-content i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .featured-image-content p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
         /* Article Content */
         .article-content {
-            font-size: 1.1rem;
-            color: #374151;
+            font-size: 1.05rem;
+            color: var(--text-muted);
         }
-        
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
         .article-content h2 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 600;
-            color: #111827;
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e5e7eb;
+            color: var(--text-dark);
+            margin: 2.5rem 0 1rem;
+            letter-spacing: -0.01em;
         }
-        
+
         .article-content h3 {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #111827;
+            color: var(--text-dark);
             margin: 1.5rem 0 0.75rem;
         }
-        
-        .article-content p {
-            margin-bottom: 1.2rem;
+
+        .article-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 1.25rem 0 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
+
         .article-content ul, .article-content ol {
-            margin: 1rem 0 1.5rem 2rem;
+            margin: 1rem 0 1.5rem 1.8rem;
         }
-        
+
         .article-content li {
             margin-bottom: 0.5rem;
         }
-        
+
+        .article-content blockquote {
+            background: var(--bg-gray);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            font-style: italic;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Code/premium boxes */
+        .pros-box {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            border: 1px solid #bbf7d0;
+        }
+
+        .cons-box {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            border: 1px solid #fecaca;
+        }
+
+        .pros-box strong, .cons-box strong {
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .pros-box ul, .cons-box ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        /* Comparison Table */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: white;
-            border-radius: 12px;
+            margin: 2rem 0;
+            background: var(--bg-white);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        
+
         .comparison-table th {
-            background: #1a5d3c;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
             color: white;
             padding: 1rem;
             text-align: left;
+            font-weight: 600;
         }
-        
+
         .comparison-table td {
             padding: 1rem;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--border);
         }
-        
+
         .comparison-table tr:last-child td {
             border-bottom: none;
         }
-        
-        .pros-box, .cons-box {
-            background: #f0fdf4;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #1a5d3c;
+
+        .comparison-table tr:hover td {
+            background: var(--bg-gray);
         }
-        
-        .cons-box {
-            background: #fef2f2;
-            border-left-color: #dc2626;
-        }
-        
+
+        /* Decision Flow */
         .decision-flow {
-            background: #f3f4f6;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
             padding: 2rem;
-            border-radius: 12px;
-            margin: 1.5rem 0;
+            border-radius: 20px;
+            margin: 2rem 0;
             text-align: center;
         }
-        
+
         .flow-step {
             display: inline-block;
-            background: white;
-            padding: 0.5rem 1rem;
-            margin: 0.5rem;
-            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1.2rem;
+            margin: 0.3rem;
+            border-radius: 40px;
+            color: white;
             font-weight: 500;
+            font-size: 0.9rem;
         }
-        
-        .callout {
-            background: #e0e7ff;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #1a5d3c;
-            font-style: italic;
+
+        .flow-arrow {
+            color: var(--primary-light);
+            font-size: 1.2rem;
+            margin: 0 0.2rem;
         }
-        
-        .author-bio {
-            background: white;
+
+        /* Callout */
+        .callout-premium {
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
             padding: 2rem;
-            border-radius: 12px;
-            margin: 3rem 0;
+            border-radius: 20px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .callout-premium i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .callout-premium p {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: #1e1b4b;
+        }
+
+        /* Author Bio */
+        .author-bio-premium {
+            background: var(--bg-gray);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 3rem 0 2rem;
             display: flex;
             gap: 1.5rem;
             align-items: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
         }
-        
+
         .author-avatar {
             width: 70px;
             height: 70px;
-            background: #1a5d3c;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -238,38 +317,78 @@
             color: white;
             font-size: 1.5rem;
             font-weight: bold;
+            flex-shrink: 0;
         }
-        
-        .back-to-blog {
-            display: inline-block;
-            margin-top: 2rem;
-            color: #1a5d3c;
-            text-decoration: none;
-            font-weight: 500;
+
+        .author-info h4 {
+            margin: 0 0 0.25rem;
+            font-size: 1.1rem;
         }
-        
-        .back-to-blog:hover {
-            text-decoration: underline;
+
+        .author-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
-        
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+        }
+
         /* Footer */
-        footer {
-            background: #1f2937;
-            color: #9ca3af;
+        .article-footer {
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-light);
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
-            .article-header h1 {
-                font-size: 1.8rem;
+            .article-premium {
+                padding: 1rem 1.2rem 3rem;
             }
+
+            .article-hero {
+                padding: 1.5rem 0 1rem;
+            }
+
+            .article-meta {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+
             .comparison-table {
                 font-size: 0.8rem;
             }
-            .author-bio {
+
+            .author-bio-premium {
                 flex-direction: column;
                 text-align: center;
             }
@@ -277,33 +396,29 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">Edwell Chinyepera</a>
-            <div class="nav-links">
-                <a href="index.html#about">About</a>
-                <a href="index.html#projects">Projects</a>
-                <a href="index.html#blog">Blog</a>
-                <a href="index.html#contact">Contact</a>
-            </div>
-        </nav>
-    </header>
 
-    <div class="article-container">
-        <div class="article-header">
+    <div class="article-premium">
+        <!-- Hero Section -->
+        <div class="article-hero">
             <span class="article-category">📋 Project Management</span>
             <h1>Bridging the Gap: Agile and Waterfall in IS Projects</h1>
             <div class="article-meta">
                 <span><i class="far fa-calendar-alt"></i> April 10, 2025</span>
                 <span><i class="far fa-clock"></i> 6 min read</span>
-                <span><i class="far fa-folder"></i> Information Systems, Methodology</span>
+                <span><i class="fas fa-tag"></i> Information Systems</span>
+            </div>
+            <div class="article-divider"></div>
+        </div>
+
+        <!-- Featured Image -->
+        <div class="featured-image">
+            <div class="featured-image-content">
+                <i class="fas fa-code-branch"></i>
+                <p>Agile vs Waterfall: Choosing the right path for your project</p>
             </div>
         </div>
 
-        <div class="article-featured-image">
-            <span>Agile vs Waterfall: Choosing the Right Path</span>
-        </div>
-
+        <!-- Article Content -->
         <div class="article-content">
             <p>One of the most common debates in Information Systems project management is whether to use Agile or Waterfall methodology. As someone who has studied both approaches and applied them in academic and practical contexts, I've learned that neither is universally "better." The right choice depends entirely on your project's unique characteristics and your organization's culture.</p>
 
@@ -324,7 +439,7 @@
 
             <div class="pros-box">
                 <strong>✅ When Waterfall Works Best:</strong>
-                <ul style="margin-top: 0.5rem;">
+                <ul>
                     <li>Requirements are clear and unlikely to change</li>
                     <li>The project is small to medium in scope</li>
                     <li>You're working with fixed budget and timeline</li>
@@ -335,7 +450,7 @@
 
             <div class="cons-box">
                 <strong>❌ Waterfall Challenges:</strong>
-                <ul style="margin-top: 0.5rem;">
+                <ul>
                     <li>Users don't see working software until very late</li>
                     <li>Changes are expensive and difficult to accommodate</li>
                     <li>Testing happens at the end, when fixes are most costly</li>
@@ -363,7 +478,7 @@
 
             <div class="pros-box">
                 <strong>✅ When Agile Works Best:</strong>
-                <ul style="margin-top: 0.5rem;">
+                <ul>
                     <li>Requirements are uncertain or expected to change</li>
                     <li>You need rapid feedback from users</li>
                     <li>The project is large and complex</li>
@@ -374,7 +489,7 @@
 
             <div class="cons-box">
                 <strong>❌ Agile Challenges:</strong>
-                <ul style="margin-top: 0.5rem;">
+                <ul>
                     <li>Requires active, ongoing customer involvement</li>
                     <li>Documentation can be lacking (risk for handover)</li>
                     <li>Difficult to predict total timeline and budget</li>
@@ -384,6 +499,7 @@
             </div>
 
             <h2>Side-by-Side Comparison</h2>
+
             <table class="comparison-table">
                 <thead>
                     <tr><th>Criterion</th><th>Waterfall</th><th>Agile</th></tr>
@@ -404,10 +520,10 @@
             <p>After studying both methodologies and applying them in various projects, I've developed this simple decision framework:</p>
 
             <div class="decision-flow">
-                <span class="flow-step">📋 Is the requirement clear and stable?</span>
-                <span>→</span>
+                <span class="flow-step">📋 Clear requirements?</span>
+                <span class="flow-arrow">→</span>
                 <span class="flow-step">✅ YES → Waterfall</span>
-                <span>→</span>
+                <span class="flow-arrow">→</span>
                 <span class="flow-step">❌ NO → Agile</span>
             </div>
 
@@ -436,8 +552,9 @@
             </ul>
             <p>This is increasingly common in enterprise environments where governance demands Waterfall artifacts but development teams need Agile flexibility.</p>
 
-            <div class="callout">
-                <strong>💡 Key Insight:</strong> The methodology is not the goal. Delivering value to users is the goal. Choose the approach that helps your team do that effectively. Don't become a methodology purist.
+            <div class="callout-premium">
+                <i class="fas fa-lightbulb"></i>
+                <p><strong>Key Insight:</strong> The methodology is not the goal. Delivering value to users is the goal. Choose the approach that helps your team do that effectively. Don't become a methodology purist.</p>
             </div>
 
             <h2>Real-World Application: My Experience</h2>
@@ -450,20 +567,42 @@
             <p>That's how you bridge the gap.</p>
         </div>
 
-        <div class="author-bio">
+        <!-- Author Bio -->
+        <div class="author-bio-premium">
             <div class="author-avatar">EC</div>
-            <div>
-                <strong>Edwell Chinyepera</strong><br>
-                Information Systems Professional | Data & Systems Analyst<br>
-                Passionate about aligning technology with business strategy and helping teams deliver better software.
+            <div class="author-info">
+                <h4>Edwell Chinyepera</h4>
+                <p>Information Systems Professional | Data & Systems Analyst</p>
+                <p style="font-size: 0.85rem; margin-top: 0.3rem;">Passionate about aligning technology with business strategy and helping teams deliver better software.</p>
             </div>
         </div>
 
-        <a href="index.html#blog" class="back-to-blog">← Back to Blog</a>
+        <!-- Footer -->
+        <div class="article-footer">
+            <p>© 2025 Edwell Chinyepera. All rights reserved.</p>
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Edwell Chinyepera. All rights reserved.</p>
-    </footer>
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Back to top button functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
