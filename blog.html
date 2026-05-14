@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Blog archive of Edwell Chinyepera - Articles on Information Systems, Project Management, Data Analytics, and IS Strategy." />
+    <title>Blog Archive | Edwell Chinyepera</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --man-city-blue: #6CABDD;
+            --man-city-blue-light: #8FC4E8;
+            --man-city-blue-very-light: #E8F1F8;
+            --text-dark: #1e2a3a;
+            --text-muted: #475569;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E8F1F8, #D4E6F3);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .background-blur {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.35), transparent 55%),
+                        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.4), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Header Navigation */
+        .site-header {
+            position: relative;
+            z-index: 2;
+            background: var(--white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 2rem;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo a {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--man-city-blue), #3a7ca5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--man-city-blue);
+        }
+
+        /* Main Container */
+        .blog-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--man-city-blue), #3a7ca5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .stat-item i {
+            color: var(--man-city-blue);
+        }
+
+        .stat-number {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        /* Filter Buttons */
+        .filter-section {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            background: var(--white);
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--man-city-blue);
+            border-color: var(--man-city-blue);
+            color: white;
+        }
+
+        /* Articles Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 180px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--man-city-blue);
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-category {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--man-city-blue);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .article-title a {
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .article-title a:hover {
+            color: var(--man-city-blue);
+        }
+
+        .article-excerpt {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .read-more {
+            color: var(--man-city-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        /* Back to Portfolio Button */
+        .back-to-portfolio {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-back-portfolio {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.8rem;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #65a30d;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-back-portfolio:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            border-top: 1px solid var(--border-light);
+            background: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .blog-container {
+                padding: 2rem 1rem;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            .stats-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blur"></div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">Edwell Chinyepera</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Blog Container -->
+    <div class="blog-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>📝 Blog Archive</h1>
+            <p>Insights on Information Systems, Project Management, Data Analytics, and IS Strategy</p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <i class="fas fa-file-alt"></i>
+                <span>Total Articles: <span class="stat-number" id="totalArticles">3</span></span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-clock"></i>
+                <span>Est. Reading Time: <span class="stat-number" id="totalReadTime">17</span> min</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-tag"></i>
+                <span>Categories: <span class="stat-number">4</span></span>
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="project-management">📋 Project Management</button>
+            <button class="filter-btn" data-filter="career">💼 Career & Strategy</button>
+            <button class="filter-btn" data-filter="data">📊 Data & Analytics</button>
+        </div>
+
+        <!-- Articles Grid -->
+        <div class="articles-grid" id="articlesGrid">
+            <!-- Article 1: Agile vs Waterfall -->
+            <div class="article-card" data-category="project-management" data-read-time="6">
+                <div class="article-image">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <div class="article-content">
+                    <div class="article-category">📋 Project Management</div>
+                    <h3 class="article-title">
+                        <a href="article-agile-waterfall.html">Bridging the Gap: Agile and Waterfall in IS Projects</a>
+                    </h3>
+                    <p class="article-excerpt">A practical guide to choosing the right project management methodology based on project scope, requirements, and organizational culture.</p>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar-alt"></i> April 10, 2025</span>
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                        <a href="article-agile-waterfall.html" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 2: Evolving Role of IS Professional -->
+            <div class="article-card" data-category="career" data-read-time="5">
+                <div class="article-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="article-content">
+                    <div class="article-category">💼 Career & Strategy</div>
+                    <h3 class="article-title">
+                        <a href="article-is-professional.html">The Evolving Role of the IS Professional</a>
+                    </h3>
+                    <p class="article-excerpt">A reflection on how information systems have moved from a support function to a strategic driver of business innovation and competitive advantage.</p>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar-alt"></i> April 15, 2025</span>
+                        <span><i class="far fa-clock"></i> 5 min read</span>
+                        <a href="article-is-professional.html" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 3: Data-Driven Decision Making -->
+            <div class="article-card" data-category="data" data-read-time="6">
+                <div class="article-image">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="article-content">
+                    <div class="article-category">📊 Data & Analytics</div>
+                    <h3 class="article-title">
+                        <a href="article-data-driven-decision.html">Data-Driven Decision Making: A Primer</a>
+                    </h3>
+                    <p class="article-excerpt">Exploring the fundamental concepts of business intelligence and data analytics, and how organizations can foster a culture of evidence-based management.</p>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar-alt"></i> April 20, 2025</span>
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                        <a href="article-data-driven-decision.html" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Results Message (hidden by default) -->
+        <div id="noResults" class="no-results" style="display: none;">
+            <i class="fas fa-search" style="font-size: 2rem; color: #cbd5e1;"></i>
+            <p style="margin-top: 1rem;">No articles found in this category.</p>
+            <button class="filter-btn" data-filter="all" style="margin-top: 1rem;">View All Articles</button>
+        </div>
+
+        <!-- Back to Portfolio Button -->
+        <div class="back-to-portfolio">
+            <a href="index.html#blog" class="btn-back-portfolio">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Edwell Chinyepera. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Filter JavaScript -->
+    <script>
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const articles = document.querySelectorAll('.article-card');
+        const totalArticlesSpan = document.getElementById('totalArticles');
+        const totalReadTimeSpan = document.getElementById('totalReadTime');
+        const noResultsDiv = document.getElementById('noResults');
+        const articlesGrid = document.getElementById('articlesGrid');
+
+        function updateStats() {
+            const visibleArticles = Array.from(articles).filter(article => article.style.display !== 'none');
+            const totalVisible = visibleArticles.length;
+            const totalTime = visibleArticles.reduce((sum, article) => {
+                return sum + parseInt(article.getAttribute('data-read-time') || 0);
+            }, 0);
+            
+            totalArticlesSpan.textContent = totalVisible;
+            totalReadTimeSpan.textContent = totalTime;
+            
+            // Show/hide no results message
+            if (totalVisible === 0) {
+                noResultsDiv.style.display = 'block';
+                articlesGrid.style.display = 'none';
+            } else {
+                noResultsDiv.style.display = 'none';
+                articlesGrid.style.display = 'grid';
+            }
+        }
+
+        function filterArticles(category) {
+            articles.forEach(article => {
+                const articleCategory = article.getAttribute('data-category');
+                if (category === 'all' || articleCategory === category) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+            updateStats();
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter articles
+                const category = button.getAttribute('data-filter');
+                filterArticles(category);
+            });
+        });
+
+        // Initialize
+        updateStats();
+    </script>
+</body>
+</html>
