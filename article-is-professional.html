@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A reflection on how information systems have moved from a support function to a strategic driver of business innovation and competitive advantage." />
+    <title>The Evolving Role of the IS Professional | Edwell Chinyepera</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --man-city-blue: #6CABDD;
+            --man-city-blue-light: #8FC4E8;
+            --man-city-blue-very-light: #E8F1F8;
+            --text-dark: #1e2a3a;
+            --text-muted: #475569;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E8F1F8, #D4E6F3);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .background-blur {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.35), transparent 55%),
+                        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.4), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .article-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+        }
+
+        .category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: var(--man-city-blue-very-light);
+            border: 1px solid var(--man-city-blue-light);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--man-city-blue);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--man-city-blue), #3a7ca5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin: 1.5rem 0 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta i {
+            color: var(--man-city-blue);
+            margin-right: 0.3rem;
+        }
+
+        .featured-image {
+            margin: 1.5rem 0 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .article-content p {
+            margin-bottom: 1.2rem;
+            color: #1e293b;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #0f172a;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: #2563eb;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 0 0 1.2rem 1.8rem;
+            color: #1e293b;
+        }
+
+        .article-content li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Timeline styling */
+        .timeline {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--man-city-blue);
+        }
+
+        .timeline-year {
+            min-width: 80px;
+            font-weight: 700;
+            color: var(--man-city-blue);
+            font-size: 1.1rem;
+        }
+
+        .timeline-content h4 {
+            margin-bottom: 0.3rem;
+            color: #0f172a;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0;
+        }
+
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .skill-item {
+            background: #f1f5f9;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            color: #0f172a;
+        }
+
+        .skill-item i {
+            color: var(--man-city-blue);
+            font-size: 1.1rem;
+        }
+
+        .callout-simple {
+            margin: 1.5rem 0;
+            padding: 0.5rem 0 0.5rem 1.2rem;
+            border-left: 3px solid #3b82f6;
+            background: #f0f9ff;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .author-bio {
+            margin: 3rem 0 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            margin: 0 0 0.2rem;
+            font-size: 1rem;
+            color: #0f172a;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-back, .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #65a30d;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-top {
+            background: transparent;
+            color: #65a30d;
+            border-color: rgba(148, 163, 184, 0.6);
+        }
+
+        .btn-top:hover {
+            background: #f1f5f9;
+            border-color: var(--man-city-blue);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .article-wrapper {
+                padding: 1.5rem 1rem;
+            }
+            .article-card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            .timeline-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blur"></div>
+
+    <div class="article-wrapper">
+        <div class="article-card">
+            <!-- Category -->
+            <div class="category">
+                <i class="fas fa-chart-line"></i> Career & Strategy
+            </div>
+
+            <!-- Title -->
+            <h1>The Evolving Role of the IS Professional</h1>
+
+            <!-- Meta -->
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> April 15, 2025</span>
+                <span><i class="far fa-clock"></i> 5 min read</span>
+                <span><i class="fas fa-tag"></i> Information Systems</span>
+            </div>
+
+            <!-- Featured Image -->
+            <div class="featured-image">
+                <img src="images/is-professional.jpg" alt="IS Professional working on strategy">
+            </div>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <p>Not long ago, the Information Systems department was often seen as the "tech support" corner of an organization — the team you called when your email wasn't working or when your computer froze. Today, that perception is not only outdated but dangerously wrong.</p>
+                
+                <p>The IS professional has undergone one of the most dramatic transformations in modern business history. From maintaining servers to shaping strategy, from fixing printers to driving innovation — the evolution is nothing short of remarkable.</p>
+                
+                <p>In this article, I reflect on this journey and what it means for aspiring IS professionals today.</p>
+                
+                <h2>A Brief History: Where We Came From</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1960s-1980s</div>
+                        <div class="timeline-content">
+                            <h4>The Technical Era</h4>
+                            <p>IS was called "Data Processing." Professionals focused on automating manual tasks — payroll, inventory, basic record-keeping. The role was purely technical, reporting to finance or operations. Business leaders didn't understand what IS did, and frankly, didn't need to.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">1990s</div>
+                        <div class="timeline-content">
+                            <h4>The Enablement Era</h4>
+                            <p>Enter ERP systems (SAP, Oracle). IS started enabling business processes. Professionals became project managers, implementing large-scale systems. The term "alignment" emerged — getting IS to align with business goals. But IS was still a supporter, not a driver.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2000s-2010s</div>
+                        <div class="timeline-content">
+                            <h4>The Digital Era</h4>
+                            <p>The internet, e-commerce, cloud computing, and data analytics changed everything. IS became central to customer experience. Amazon, Google, and Netflix showed that technology WAS the business. IS professionals started sitting at the strategy table.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">2020s and Beyond</div>
+                        <div class="timeline-content">
+                            <h4>The Strategic Era</h4>
+                            <p>AI, machine learning, blockchain, and advanced analytics. IS is no longer just enabling strategy — IS IS the strategy. The modern IS professional is a business strategist who happens to understand technology, not the other way around.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>What This Means for Today's IS Professional</h2>
+                <p>The shift from "support" to "strategic driver" has fundamentally changed what organizations expect from IS professionals. Technical skills alone are no longer enough.</p>
+                
+                <h3>The Modern IS Professional Must Be:</h3>
+                
+                <div class="skills-grid">
+                    <div class="skill-item"><i class="fas fa-chart-line"></i> Business Strategist</div>
+                    <div class="skill-item"><i class="fas fa-users"></i> Trusted Advisor</div>
+                    <div class="skill-item"><i class="fas fa-lightbulb"></i> Innovation Driver</div>
+                    <div class="skill-item"><i class="fas fa-comments"></i> Bridge Builder</div>
+                    <div class="skill-item"><i class="fas fa-shield-alt"></i> Risk Manager</div>
+                    <div class="skill-item"><i class="fas fa-code"></i> Technical Expert</div>
+                    <div class="skill-item"><i class="fas fa-chart-pie"></i> Data Translator</div>
+                    <div class="skill-item"><i class="fas fa-handshake"></i> Relationship Manager</div>
+                </div>
+                
+                <div class="callout-simple">
+                    <strong>💡 Key Shift:</strong> The question is no longer "How do we build this system?" but rather "What business value will this system create, and how does it differentiate us from competitors?"
+                </div>
+                
+                <h2>The Three Competencies Every IS Professional Needs</h2>
+                
+                <h3>1. Technical Competency (The Foundation)</h3>
+                <p>You still need to understand databases, networks, systems analysis, and cybersecurity. But technical skills are now table stakes — everyone has them. What sets you apart is what you add on top.</p>
+                
+                <h3>2. Business Competency (The Differentiator)</h3>
+                <p>Do you understand how your organization makes money? Can you read a balance sheet? Do you know your industry's competitive landscape? The best IS professionals speak fluent business and can translate technical possibilities into business opportunities.</p>
+                
+                <h3>3. People Competency (The Multiplier)</h3>
+                <p>Can you influence without authority? Can you explain complex technical concepts to non-technical executives? Can you build relationships across departments? These "soft skills" are what turn good IS professionals into indispensable strategic partners.</p>
+                
+                <h2>Reflections from My Journey</h2>
+                <p>As an Information Systems student and aspiring professional, this evolution is both exciting and challenging. It means my education must go beyond learning to code or design databases. It means I must constantly ask: "How does this technology create value?"</p>
+                
+                <p>My final year project, AgriTrace, is a direct application of this mindset. The technical challenge (building a USSD verification system) was significant. But the real value comes from understanding the business problem — counterfeit agricultural inputs destroying farmers' livelihoods — and designing a solution that addresses it in a way that is accessible, sustainable, and impactful.</p>
+                
+                <h2>What This Means for Organizations</h2>
+                <p>For business leaders, the message is clear: stop treating IS as a cost center. The organizations that thrive will be those that embed IS professionals into strategic decision-making from day one, not as an afterthought.</p>
+                
+                <p>The most successful companies today — Amazon, Microsoft, Tesla — are technology companies at their core, regardless of their industry. Their IS professionals don't just support the business; they <strong>are</strong> the business.</p>
+                
+                <div class="callout-simple">
+                    <strong>📌 Takeaway for Leaders:</strong> If your IS team isn't in the room when major strategic decisions are made, you're leaving value on the table.
+                </div>
+                
+                <h2>Conclusion: The Future Is Bright</h2>
+                <p>The role of the IS professional will only become more central. As AI, automation, and data continue to reshape every industry, the ability to bridge technology and business strategy will be one of the most valuable skills in the job market.</p>
+                
+                <p>For those of us entering this field, the opportunity is enormous. We get to be at the intersection of technology and business — building systems that don't just work, but that create competitive advantage, drive innovation, and change industries.</p>
+                
+                <p>That's not a support role. That's a leadership role.</p>
+                
+                <p>And that's the evolution of the IS professional.</p>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="author-bio">
+                <div class="author-avatar">EC</div>
+                <div class="author-info">
+                    <h4>Edwell Chinyepera</h4>
+                    <p>Information Systems Professional | Data & Systems Analyst</p>
+                    <p style="font-size: 0.75rem; margin-top: 0.2rem;">Passionate about aligning technology with business strategy.</p>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <a href="index.html#blog" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Portfolio
+                </a>
+                <a href="#" class="btn-top" id="backToTopBtn">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                © 2026 Edwell Chinyepera. All Rights Reserved.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
