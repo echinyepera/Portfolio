@@ -1,1 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A case study on building AgriTrace - a mobile-based agricultural input verification system using USSD technology to combat counterfeit seeds and fertilizers in Zimbabwe." />
+    <title>AgriTrace Case Study | Edwell Chinyepera</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --man-city-blue: #6CABDD;
+            --man-city-blue-light: #8FC4E8;
+            --man-city-blue-very-light: #E8F1F8;
+            --text-dark: #1e2a3a;
+            --text-muted: #475569;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E8F1F8, #D4E6F3);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .background-blur {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.35), transparent 55%),
+                        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.4), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .article-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+        }
+
+        .category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: var(--man-city-blue-very-light);
+            border: 1px solid var(--man-city-blue-light);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--man-city-blue);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--man-city-blue), #3a7ca5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin: 1.5rem 0 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta i {
+            color: var(--man-city-blue);
+            margin-right: 0.3rem;
+        }
+
+        .featured-image {
+            margin: 1.5rem 0 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .article-content p {
+            margin-bottom: 1.2rem;
+            color: #1e293b;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #0f172a;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: #2563eb;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 0 0 1.2rem 1.8rem;
+            color: #1e293b;
+        }
+
+        .article-content li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Architecture diagram */
+        .architecture-diagram {
+            background: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .diagram-line {
+            margin: 0.5rem 0;
+        }
+
+        .diagram-arrow {
+            color: var(--man-city-blue);
+            font-size: 1.2rem;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: #f1f5f9;
+            padding: 1.2rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--man-city-blue);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: #e2e8f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .challenge-box {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .solution-box {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .callout-simple {
+            margin: 1.5rem 0;
+            padding: 0.5rem 0 0.5rem 1.2rem;
+            border-left: 3px solid #3b82f6;
+            background: #f0f9ff;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .author-bio {
+            margin: 3rem 0 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .author-info h4 {
+            margin: 0 0 0.2rem;
+            font-size: 1rem;
+            color: #0f172a;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-back, .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #65a30d;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-top {
+            background: transparent;
+            color: #65a30d;
+            border-color: rgba(148, 163, 184, 0.6);
+        }
+
+        .btn-top:hover {
+            background: #f1f5f9;
+            border-color: var(--man-city-blue);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .article-wrapper {
+                padding: 1.5rem 1rem;
+            }
+            .article-card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blur"></div>
+
+    <div class="article-wrapper">
+        <div class="article-card">
+            <!-- Category -->
+            <div class="category">
+                <i class="fas fa-leaf"></i> Case Study / Final Year Project
+            </div>
+
+            <!-- Title -->
+            <h1>AgriTrace: Fighting Counterfeit Agricultural Inputs with USSD Technology</h1>
+
+            <!-- Meta -->
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> May 10, 2025</span>
+                <span><i class="far fa-clock"></i> 8 min read</span>
+                <span><i class="fas fa-tag"></i> Case Study / AgriTech</span>
+            </div>
+
+            <!-- Featured Image -->
+            <div class="featured-image">
+                <img src="images/agritrace-case.jpg" alt="AgriTrace system diagram">
+            </div>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <p>Every farming season in Zimbabwe, counterfeit agricultural inputs destroy livelihoods. Fake seeds packaged as trusted brands, fertilizers that are actually sand and ash — farmers only discover the truth when crops fail months after planting. By then, it's too late.</p>
+                
+                <p>This case study documents my final year project, <strong>AgriTrace</strong> — a mobile-based agricultural input verification system that allows farmers to authenticate products instantly using any mobile phone, even basic feature phones with no internet connection.</p>
+                
+                <div class="callout-simple">
+                    <strong>📌 Project Status:</strong> Completed as a final year project. Fully functional prototype developed. Code kept private for intellectual property considerations.
+                </div>
+
+                <h2>The Problem</h2>
+                <p>Zimbabwe's agricultural sector supports over 70% of the population. Yet counterfeit agricultural inputs are rampant:</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">67%</div>
+                        <div class="stat-label">Farmers experienced counterfeit inputs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">62%</div>
+                        <div class="stat-label">Farmers don't own smartphones</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$500+</div>
+                        <div class="stat-label">Average loss per affected farmer</div>
+                    </div>
+                </div>
+
+                <p>From interviews with farmers, manufacturers, and law enforcement, I identified four critical gaps:</p>
+                
+                <ul>
+                    <li><strong>No unified platform:</strong> Each manufacturer has its own verification system (if any)</li>
+                    <li><strong>Reactive detection:</strong> Farmers discover counterfeits only after crop failure — months later</li>
+                    <li><strong>Inaccessible:</strong> Most systems require smartphones and internet</li>
+                    <li><strong>No intelligence:</strong> Manufacturers have zero visibility into where their products are sold</li>
+                </ul>
+
+                <h2>The Solution Overview</h2>
+                <p>AgriTrace is a <strong>USSD-based verification system</strong> that works on any mobile phone. Farmers dial a shortcode, enter a 12-digit product code, and receive an instant verification result.</p>
+
+                <div class="architecture-diagram">
+                    <div class="diagram-line">📱 Farmer dials *123#</div>
+                    <div class="diagram-line"><span class="diagram-arrow">↓</span></div>
+                    <div class="diagram-line">🔢 Enters 12-digit product code</div>
+                    <div class="diagram-line"><span class="diagram-arrow">↓</span></div>
+                    <div class="diagram-line">✅ System verifies against database</div>
+                    <div class="diagram-line"><span class="diagram-arrow">↓</span></div>
+                    <div class="diagram-line">📄 Returns result + product info</div>
+                </div>
+
+                <h2>Key Features</h2>
+                
+                <h3>1. USSD Verification (Farmer-Facing)</h3>
+                <ul>
+                    <li>Works on ANY mobile phone — feature phones, smartphones, all networks</li>
+                    <li>No internet required</li>
+                    <li>Simple numeric menu (no literacy required)</li>
+                    <li>Instant verification with product details (brand, type, expiry)</li>
+                    <li>Automatic GPS location capture (for hotspot mapping)</li>
+                </ul>
+
+                <h3>2. Manufacturer Dashboard</h3>
+                <ul>
+                    <li>Real-time interactive map showing verification locations across Zimbabwe</li>
+                    <li>Live statistics (total verifications, genuine/fake counts, active alerts)</li>
+                    <li>Verification history with filters (date, product, region)</li>
+                    <li>Product and batch management</li>
+                    <li>Bulk code generation and download</li>
+                </ul>
+
+                <h3>3. Anomaly Detection & Alerts</h3>
+                <ul>
+                    <li>System compares verification location against expected distribution region</li>
+                    <li>Automatic alerts when products are verified outside intended regions</li>
+                    <li>Severity levels: HIGH (counterfeit suspect) vs MEDIUM (diversion)</li>
+                    <li>Email + SMS notifications to manufacturers</li>
+                </ul>
+
+                <h3>4. Evidence Package Generation</h3>
+                <ul>
+                    <li>Downloadable PDF evidence with GPS coordinates and timestamps</li>
+                    <li>SHA-256 hash for integrity verification</li>
+                    <li>Compliant with Zimbabwe's Electronic Transactions and Cyber Security Act</li>
+                    <li>Designed for law enforcement prosecution</li>
+                </ul>
+
+                <h2>Technology Stack</h2>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">PostGIS (geospatial)</span>
+                    <span class="tech-tag">Africa's Talking USSD API</span>
+                    <span class="tech-tag">Leaflet.js (maps)</span>
+                    <span class="tech-tag">Chart.js (analytics)</span>
+                    <span class="tech-tag">ReportLab (PDF generation)</span>
+                    <span class="tech-tag">HTML5/CSS3/JavaScript</span>
+                </div>
+
+                <h2>System Architecture (High-Level)</h2>
+                <div class="architecture-diagram">
+                    <div class="diagram-line">┌─────────────────────────────────────────────────────┐</div>
+                    <div class="diagram-line">│                    PRESENTATION LAYER                │</div>
+                    <div class="diagram-line">│  📱 USSD Interface     |     🌐 Web Dashboard        │</div>
+                    <div class="diagram-line">└─────────────────────────────────────────────────────┘</div>
+                    <div class="diagram-line"><span class="diagram-arrow">↓</span></div>
+                    <div class="diagram-line">┌─────────────────────────────────────────────────────┐</div>
+                    <div class="diagram-line">│                    APPLICATION LAYER                │</div>
+                    <div class="diagram-line">│  Django Backend | Verification Engine | Anomaly    │</div>
+                    <div class="diagram-line">│  Detection | Alert Service | Evidence Generator    │</div>
+                    <div class="diagram-line">└─────────────────────────────────────────────────────┘</div>
+                    <div class="diagram-line"><span class="diagram-arrow">↓</span></div>
+                    <div class="diagram-line">┌─────────────────────────────────────────────────────┐</div>
+                    <div class="diagram-line">│                      DATA LAYER                     │</div>
+                    <div class="diagram-line">│         PostgreSQL 15 + PostGIS Extension           │</div>
+                    <div class="diagram-line">└─────────────────────────────────────────────────────┘</div>
+                </div>
+
+                <h2>Database Design</h2>
+                <p>The database was normalized to 3NF with eight core tables:</p>
+                <ul>
+                    <li><strong>manufacturer</strong> – Company details and authentication</li>
+                    <li><strong>product</strong> – Product catalog (seeds, fertilizers, chemicals)</li>
+                    <li><strong>batch</strong> – Manufacturing batches with expiry dates</li>
+                    <li><strong>region</strong> – Geographic distribution areas (with PostGIS polygons)</li>
+                    <li><strong>product_code</strong> – 12-digit unique verification codes</li>
+                    <li><strong>verification</strong> – Every verification attempt with GPS location</li>
+                    <li><strong>alert</strong> – Anomaly detection records</li>
+                    <li><strong>evidence_package</strong> – Generated evidence for law enforcement</li>
+                </ul>
+
+                <h2>Key Challenges & Solutions</h2>
+                
+                <div class="challenge-box">
+                    <strong>⚠️ Challenge 1: Installing PostGIS on Windows</strong>
+                    <p style="margin-top: 0.5rem;">Multiple PostgreSQL versions conflicted. PostGIS extension wouldn't enable. Solution: Clean install using PostgreSQL+PostGIS bundle and proper PATH configuration. Lesson learned: Linux deployment would have been easier.</p>
+                </div>
+
+                <div class="solution-box">
+                    <strong>✅ Solution 1: Development with SQLite → PostgreSQL at deployment</strong>
+                    <p style="margin-top: 0.5rem;">Built the system with SQLite for rapid development, then migrated to PostgreSQL+PostGIS for production. This saved weeks of debugging.</p>
+                </div>
+
+                <div class="challenge-box">
+                    <strong>⚠️ Challenge 2: USSD Session State Management</strong>
+                    <p style="margin-top: 0.5rem;">USSD is stateless — each request is independent. Maintaining user progress through multi-step verification required careful session handling and state tracking in the database.</p>
+                </div>
+
+                <div class="solution-box">
+                    <strong>✅ Solution 2: Session-based State Machine</strong>
+                    <p style="margin-top: 0.5rem;">Implemented a state machine that tracks where the user is in the USSD flow (MAIN_MENU, AWAIT_CODE, AFTER_VERIFY) and stores progress in Redis cache.</p>
+                </div>
+
+                <div class="challenge-box">
+                    <strong>⚠️ Challenge 3: Geospatial Anomaly Detection</strong>
+                    <p style="margin-top: 0.5rem;">Detecting when a product is verified outside its expected region required efficient point-in-polygon queries across thousands of verifications.</p>
+                </div>
+
+                <div class="solution-box">
+                    <strong>✅ Solution 3: PostGIS Spatial Functions</strong>
+                    <p style="margin-top: 0.5rem;">Used PostGIS ST_Within and ST_Distance functions to check if verification points fall within expected region polygons. Alerts trigger when distance exceeds thresholds.</p>
+                </div>
+
+                <h2>Lessons Learned</h2>
+                
+                <h3>Technical Lessons</h3>
+                <ul>
+                    <li><strong>USSD is powerful but limited:</strong> Session timeouts, character limits, and lack of back buttons require careful UX design</li>
+                    <li><strong>PostGIS on Windows is painful:</strong> For geospatial projects, develop on Linux or use cloud databases</li>
+                    <li><strong>Normalize early:</strong> A clean database schema prevents headaches later</li>
+                    <li><strong>Test on real devices:</strong> USSD simulators don't catch all edge cases</li>
+                </ul>
+
+                <h3>Project Management Lessons</h3>
+                <ul>
+                    <li><strong>Requirements evolve:</strong> Manufacturers didn't know they needed anomaly detection until they saw the prototype</li>
+                    <li><strong>User feedback is gold:</strong> Farmers wanted shorter codes, so I redesigned the code format</li>
+                    <li><strong>Document as you build:</strong> Future you will thank past you</li>
+                </ul>
+
+                <div class="callout-simple">
+                    <strong>💡 Biggest Insight:</strong> Technology is only half the solution. The real value comes from understanding the business problem deeply and designing for the user's constraints (feature phones, low literacy, no internet).
+                </div>
+
+                <h2>Impact & Outcomes</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">&lt;3s</div>
+                        <div class="stat-label">Average verification time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Phone compatibility (any mobile phone)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">94%</div>
+                        <div class="stat-label">Farmers said they would use the system</div>
+                    </div>
+                </div>
+
+                <p>Based on user acceptance testing with 15 farmers, 3 manufacturers, and 2 law enforcement officers:</p>
+                <ul>
+                    <li>All test farmers completed verification without assistance (zero training needed)</li>
+                    <li>Manufacturers valued the real-time map and anomaly alerts</li>
+                    <li>Law enforcement confirmed evidence packages would strengthen prosecution cases</li>
+                </ul>
+
+                <h2>Future Enhancements</h2>
+                <p>If this project were to move to production, I would add:</p>
+                <ul>
+                    <li><strong>Mobile app:</strong> For farmers with smartphones (QR code scanning, offline mode)</li>
+                    <li><strong>Predictive analytics:</strong> ML models to forecast counterfeit hotspots</li>
+                    <li><strong>Blockchain integration:</strong> Immutable verification records</li>
+                    <li><strong>Multi-language support:</strong> Shona and Ndebele USSD menus</li>
+                    <li><strong>SMS fallback:</strong> When USSD networks are congested</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>AgriTrace demonstrates how appropriate technology (USSD) can solve a critical real-world problem. By focusing on accessibility (any phone, no internet), real-time intelligence (GPS tracking, anomaly alerts), and practical outcomes (evidence for prosecution), the system addresses the counterfeit crisis from multiple angles.</p>
+                
+                <p>This project reinforced my belief that the best technologists are those who deeply understand the problem and design for the user's reality — not their own.</p>
+                
+                <div class="callout-simple">
+                    <strong>📌 Note to Recruiters:</strong> The complete codebase is available for technical review during the interview process. Contact me to schedule a walkthrough.
+                </div>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="author-bio">
+                <div class="author-avatar">EC</div>
+                <div class="author-info">
+                    <h4>Edwell Chinyepera</h4>
+                    <p>Information Systems Professional | Data & Systems Analyst</p>
+                    <p style="font-size: 0.75rem; margin-top: 0.2rem;">Final Year Project: AgriTrace — Agricultural Input Verification System</p>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <a href="index.html#blog" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Portfolio
+                </a>
+                <a href="#" class="btn-top" id="backToTopBtn">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                © 2026 Edwell Chinyepera. All Rights Reserved.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
