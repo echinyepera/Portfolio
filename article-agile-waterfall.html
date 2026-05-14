@@ -3,211 +3,148 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A practical guide to choosing between Agile and Waterfall methodologies for Information Systems projects based on project scope, requirements, and organizational culture." />
+    <meta name="description" content="A practical guide to choosing between Agile and Waterfall methodologies for Information Systems projects." />
     <meta name="author" content="Edwell Chinyepera" />
     <title>Agile vs Waterfall in IS Projects | Edwell Chinyepera</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --primary-light: #60a5fa;
-            --text-dark: #111827;
-            --text-muted: #4b5563;
-            --text-light: #6b7280;
-            --bg-white: #ffffff;
-            --bg-gray: #f9fafb;
-            --border: #e5e7eb;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.7;
-            color: var(--text-dark);
-            background: var(--bg-white);
-            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            line-height: 1.6;
         }
 
-        /* Premium Article Container */
-        .article-premium {
-            max-width: 880px;
+        /* Article Container - Centered, clean */
+        .article-container {
+            max-width: 720px;
             margin: 0 auto;
-            padding: 2rem 1.5rem 4rem;
+            padding: 4rem 1.5rem 4rem;
         }
 
-        /* Hero Section */
-        .article-hero {
-            text-align: center;
-            padding: 3rem 0 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .article-category {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
+        /* Headers */
+        h1 {
+            font-size: 2.2rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .article-hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
+            margin: 0 0 0.75rem;
             letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
-        .article-meta {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 1rem;
-        }
-
-        .article-meta span i {
-            margin-right: 0.4rem;
-            color: var(--primary);
-        }
-
-        .article-divider {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-            margin: 1.5rem auto 0;
-        }
-
-        /* Featured Image */
-        .featured-image {
-            margin: 2rem 0;
-            border-radius: 20px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .featured-image-content {
-            text-align: center;
-            padding: 3rem;
-            color: white;
-        }
-
-        .featured-image-content i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.8;
-        }
-
-        .featured-image-content p {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* Article Content */
-        .article-content {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-        }
-
-        .article-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .article-content h2 {
-            font-size: 1.8rem;
+        h2 {
+            font-size: 1.5rem;
             font-weight: 600;
-            color: var(--text-dark);
             margin: 2.5rem 0 1rem;
             letter-spacing: -0.01em;
         }
 
-        .article-content h3 {
-            font-size: 1.3rem;
+        h3 {
+            font-size: 1.2rem;
             font-weight: 600;
-            color: var(--text-dark);
             margin: 1.5rem 0 0.75rem;
         }
 
-        .article-content h4 {
-            font-size: 1rem;
+        /* Paragraphs */
+        p {
+            margin: 0 0 1.2rem;
+            color: #4b5563;
+        }
+
+        /* Links - No navigation, just standard links if any */
+        a {
+            color: #2563eb;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 0 0 1.2rem 1.5rem;
+            padding: 0;
+            color: #4b5563;
+        }
+
+        li {
+            margin-bottom: 0.35rem;
+        }
+
+        /* Article Meta (date, read time) */
+        .article-meta {
+            margin: 1rem 0 1.5rem;
+            color: #6b7280;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 1rem;
+        }
+
+        .article-meta span {
+            margin-right: 1rem;
+        }
+
+        /* Category tag */
+        .category {
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            color: var(--primary);
-            margin: 1.25rem 0 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
+            color: #2563eb;
         }
 
-        .article-content ul, .article-content ol {
-            margin: 1rem 0 1.5rem 1.8rem;
-        }
-
-        .article-content li {
-            margin-bottom: 0.5rem;
-        }
-
-        .article-content blockquote {
-            background: var(--bg-gray);
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            border-radius: 12px;
-            font-style: italic;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-
-        /* Code/premium boxes */
-        .pros-box {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            padding: 1.5rem;
+        /* Featured Image Area - Simple, no gradient fancyness */
+        .featured-image {
+            margin: 1.5rem 0 2rem;
+            background-color: #f3f4f6;
             border-radius: 16px;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .featured-image-content {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+
+        .featured-image-content i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Pros/Cons Boxes - Minimal */
+        .pros-box, .cons-box {
+            border-left: 4px solid #10b981;
+            background-color: #f9fafb;
+            padding: 1.2rem 1.5rem;
             margin: 1.5rem 0;
-            border: 1px solid #bbf7d0;
+            border-radius: 8px;
         }
 
         .cons-box {
-            background: linear-gradient(135deg, #fef2f2, #fee2e2);
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin: 1.5rem 0;
-            border: 1px solid #fecaca;
+            border-left-color: #ef4444;
         }
 
         .pros-box strong, .cons-box strong {
-            font-size: 1rem;
             display: block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .pros-box ul, .cons-box ul {
@@ -215,180 +152,123 @@
             padding-left: 1.2rem;
         }
 
-        /* Comparison Table */
+        /* Table - Minimal */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 2rem 0;
-            background: var(--bg-white);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
         }
 
         .comparison-table th {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: white;
-            padding: 1rem;
             text-align: left;
+            padding: 0.75rem;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
             font-weight: 600;
         }
 
         .comparison-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            vertical-align: top;
         }
 
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .comparison-table tr:hover td {
-            background: var(--bg-gray);
-        }
-
-        /* Decision Flow */
+        /* Decision Flow - Simple */
         .decision-flow {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 2rem;
-            border-radius: 20px;
-            margin: 2rem 0;
+            background-color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
             text-align: center;
+            border: 1px solid #e5e7eb;
         }
 
         .flow-step {
             display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1.2rem;
-            margin: 0.3rem;
-            border-radius: 40px;
-            color: white;
-            font-weight: 500;
-            font-size: 0.9rem;
+            background: white;
+            padding: 0.4rem 1rem;
+            margin: 0.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid #e5e7eb;
         }
 
         .flow-arrow {
-            color: var(--primary-light);
-            font-size: 1.2rem;
-            margin: 0 0.2rem;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin: 0 0.1rem;
         }
 
         /* Callout */
-        .callout-premium {
-            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-            padding: 2rem;
-            border-radius: 20px;
-            margin: 2rem 0;
-            text-align: center;
+        .callout {
+            background-color: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
         }
 
-        .callout-premium i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .callout-premium p {
-            margin-bottom: 0;
-            font-weight: 500;
-            color: #1e1b4b;
-        }
-
-        /* Author Bio */
-        .author-bio-premium {
-            background: var(--bg-gray);
-            padding: 2rem;
-            border-radius: 20px;
+        /* Author Bio - Minimal */
+        .author-bio {
             margin: 3rem 0 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             align-items: center;
-            border: 1px solid var(--border);
         }
 
         .author-avatar {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            background-color: #111827;
+            color: white;
+            border-radius: 999px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 1rem;
             flex-shrink: 0;
         }
 
         .author-info h4 {
-            margin: 0 0 0.25rem;
-            font-size: 1.1rem;
+            margin: 0 0 0.2rem;
+            font-size: 0.95rem;
         }
 
         .author-info p {
             margin: 0;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* Back to top button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--primary);
-            color: white;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-        }
-
-        .back-to-top:hover {
-            background: var(--primary-dark);
+            font-size: 0.8rem;
+            color: #6b7280;
         }
 
         /* Footer */
-        .article-footer {
-            text-align: center;
-            padding-top: 2rem;
+        footer {
             margin-top: 2rem;
-            border-top: 1px solid var(--border);
-            font-size: 0.8rem;
-            color: var(--text-light);
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-align: center;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .article-premium {
-                padding: 1rem 1.2rem 3rem;
+        @media (max-width: 640px) {
+            .article-container {
+                padding: 2rem 1.2rem;
             }
-
-            .article-hero {
-                padding: 1.5rem 0 1rem;
+            
+            h1 {
+                font-size: 1.6rem;
             }
-
-            .article-meta {
-                gap: 1rem;
-                font-size: 0.75rem;
-            }
-
+            
             .comparison-table {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
             }
-
-            .author-bio-premium {
+            
+            .author-bio {
                 flex-direction: column;
                 text-align: center;
             }
@@ -396,213 +276,182 @@
     </style>
 </head>
 <body>
-
-    <div class="article-premium">
-        <!-- Hero Section -->
-        <div class="article-hero">
-            <span class="article-category">📋 Project Management</span>
-            <h1>Bridging the Gap: Agile and Waterfall in IS Projects</h1>
-            <div class="article-meta">
-                <span><i class="far fa-calendar-alt"></i> April 10, 2025</span>
-                <span><i class="far fa-clock"></i> 6 min read</span>
-                <span><i class="fas fa-tag"></i> Information Systems</span>
-            </div>
-            <div class="article-divider"></div>
+    <main class="article-container">
+        <!-- Category -->
+        <div class="category">Project Management</div>
+        
+        <!-- Title -->
+        <h1>Bridging the Gap: Agile and Waterfall in IS Projects</h1>
+        
+        <!-- Meta -->
+        <div class="article-meta">
+            <span>📅 April 10, 2025</span>
+            <span>📖 6 min read</span>
+            <span>🏷️ Methodology</span>
         </div>
-
-        <!-- Featured Image -->
-        <div class="featured-image">
-            <div class="featured-image-content">
-                <i class="fas fa-code-branch"></i>
-                <p>Agile vs Waterfall: Choosing the right path for your project</p>
-            </div>
-        </div>
-
+        
+     <!-- Featured Image -->
+<div class="featured-image">
+    <img src="images/linux-mascot-lab-coat-microscope.png" alt="Linux mascot in lab coat with microscope" style="width: 100%; height: auto; display: block;">
+</div>
+        
         <!-- Article Content -->
-        <div class="article-content">
-            <p>One of the most common debates in Information Systems project management is whether to use Agile or Waterfall methodology. As someone who has studied both approaches and applied them in academic and practical contexts, I've learned that neither is universally "better." The right choice depends entirely on your project's unique characteristics and your organization's culture.</p>
-
-            <p>In this article, I'll break down both methodologies, compare their strengths and weaknesses, and provide a practical framework for making the right choice for your next IS project.</p>
-
-            <h2>What is Waterfall Methodology?</h2>
-            <p>Waterfall is a traditional, linear approach to project management. Think of it like building a house — you must complete the foundation before you build the walls, and the walls before the roof. Each phase must be fully completed before moving to the next.</p>
-
-            <h3>The Waterfall Phases:</h3>
-            <ol>
-                <li><strong>Requirements Gathering</strong> – Document everything the system must do</li>
-                <li><strong>System Design</strong> – Plan the architecture and technical approach</li>
-                <li><strong>Implementation</strong> – Write the code and build the system</li>
-                <li><strong>Testing</strong> – Verify everything works as specified</li>
-                <li><strong>Deployment</strong> – Release the system to users</li>
-                <li><strong>Maintenance</strong> – Fix issues and make updates</li>
-            </ol>
-
-            <div class="pros-box">
-                <strong>✅ When Waterfall Works Best:</strong>
-                <ul>
-                    <li>Requirements are clear and unlikely to change</li>
-                    <li>The project is small to medium in scope</li>
-                    <li>You're working with fixed budget and timeline</li>
-                    <li>The team is not co-located</li>
-                    <li>Documentation is critical for compliance or handover</li>
-                </ul>
-            </div>
-
-            <div class="cons-box">
-                <strong>❌ Waterfall Challenges:</strong>
-                <ul>
-                    <li>Users don't see working software until very late</li>
-                    <li>Changes are expensive and difficult to accommodate</li>
-                    <li>Testing happens at the end, when fixes are most costly</li>
-                    <li>Assumes requirements can be perfectly defined upfront</li>
-                </ul>
-            </div>
-
-            <h2>What is Agile Methodology?</h2>
-            <p>Agile is an iterative approach that delivers working software in small, rapid cycles called "sprints" (typically 1-4 weeks). Instead of planning everything upfront, Agile teams adapt based on feedback and changing requirements.</p>
-
-            <h3>The Agile Manifesto Values:</h3>
+        <p>One of the most common debates in Information Systems project management is whether to use Agile or Waterfall methodology. As someone who has studied both approaches and applied them in academic and practical contexts, I've learned that neither is universally "better." The right choice depends entirely on your project's unique characteristics and your organization's culture.</p>
+        
+        <p>In this article, I'll break down both methodologies, compare their strengths and weaknesses, and provide a practical framework for making the right choice for your next IS project.</p>
+        
+        <h2>What is Waterfall Methodology?</h2>
+        <p>Waterfall is a traditional, linear approach to project management. Think of it like building a house — you must complete the foundation before you build the walls, and the walls before the roof. Each phase must be fully completed before moving to the next.</p>
+        
+        <h3>The Waterfall Phases:</h3>
+        <ol>
+            <li><strong>Requirements Gathering</strong> – Document everything the system must do</li>
+            <li><strong>System Design</strong> – Plan the architecture and technical approach</li>
+            <li><strong>Implementation</strong> – Write the code and build the system</li>
+            <li><strong>Testing</strong> – Verify everything works as specified</li>
+            <li><strong>Deployment</strong> – Release the system to users</li>
+            <li><strong>Maintenance</strong> – Fix issues and make updates</li>
+        </ol>
+        
+        <div class="pros-box">
+            <strong>✅ When Waterfall Works Best:</strong>
             <ul>
-                <li><strong>Individuals and interactions</strong> over processes and tools</li>
-                <li><strong>Working software</strong> over comprehensive documentation</li>
-                <li><strong>Customer collaboration</strong> over contract negotiation</li>
-                <li><strong>Responding to change</strong> over following a plan</li>
+                <li>Requirements are clear and unlikely to change</li>
+                <li>The project is small to medium in scope</li>
+                <li>You're working with fixed budget and timeline</li>
+                <li>The team is not co-located</li>
+                <li>Documentation is critical for compliance or handover</li>
             </ul>
-
-            <h3>Popular Agile Frameworks:</h3>
-            <ul>
-                <li><strong>Scrum</strong> – Uses sprints, daily stand-ups, and defined roles (Product Owner, Scrum Master, Team)</li>
-                <li><strong>Kanban</strong> – Visualizes workflow on a board and limits work-in-progress</li>
-                <li><strong>Extreme Programming (XP)</strong> – Emphasizes technical excellence and pair programming</li>
-            </ul>
-
-            <div class="pros-box">
-                <strong>✅ When Agile Works Best:</strong>
-                <ul>
-                    <li>Requirements are uncertain or expected to change</li>
-                    <li>You need rapid feedback from users</li>
-                    <li>The project is large and complex</li>
-                    <li>The team is co-located and collaborative</li>
-                    <li>Time-to-market is critical</li>
-                </ul>
-            </div>
-
-            <div class="cons-box">
-                <strong>❌ Agile Challenges:</strong>
-                <ul>
-                    <li>Requires active, ongoing customer involvement</li>
-                    <li>Documentation can be lacking (risk for handover)</li>
-                    <li>Difficult to predict total timeline and budget</li>
-                    <li>Not ideal for fixed-price contracts</li>
-                    <li>Requires experienced, self-organizing teams</li>
-                </ul>
-            </div>
-
-            <h2>Side-by-Side Comparison</h2>
-
-            <table class="comparison-table">
-                <thead>
-                    <tr><th>Criterion</th><th>Waterfall</th><th>Agile</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Requirements</td><td>Fixed, defined upfront</td><td>Evolving, discovered over time</td></tr>
-                    <tr><td>User involvement</td><td>Mainly at beginning and end</td><td>Continuous throughout</td></tr>
-                    <tr><td>Delivery</td><td>One final product</td><td>Incremental releases</td></tr>
-                    <tr><td>Changes</td><td>Difficult and costly</td><td>Welcomed and expected</td></tr>
-                    <tr><td>Documentation</td><td>Comprehensive</td><td>Just enough</td></tr>
-                    <tr><td>Testing</td><td>At the end</td><td>Throughout each sprint</td></tr>
-                    <tr><td>Best for</td><td>Simple, stable projects</td><td>Complex, uncertain projects</td></tr>
-                    <tr><td>Team size</td><td>Can be large</td><td>Typically small (5-9 people)</td></tr>
-                </tbody>
-            </table>
-
-            <h2>Making the Right Choice: A Decision Framework</h2>
-            <p>After studying both methodologies and applying them in various projects, I've developed this simple decision framework:</p>
-
-            <div class="decision-flow">
-                <span class="flow-step">📋 Clear requirements?</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">✅ YES → Waterfall</span>
-                <span class="flow-arrow">→</span>
-                <span class="flow-step">❌ NO → Agile</span>
-            </div>
-
-            <p>But it's rarely that simple. Here are five key questions to ask:</p>
-
-            <h3>Question 1: How well do you understand the requirements?</h3>
-            <p>If you can document 80-100% of requirements upfront and they're unlikely to change, Waterfall is viable. If requirements are fuzzy or will evolve as users see the product, Agile is your answer.</p>
-
-            <h3>Question 2: What is your team's size and location?</h3>
-            <p>Waterfall works well with distributed teams because communication happens through documentation. Agile requires frequent communication, making co-located teams more successful.</p>
-
-            <h3>Question 3: What is your organizational culture?</h3>
-            <p>Traditional, process-heavy organizations often struggle with Agile. If your stakeholders demand detailed upfront plans and fixed budgets, Waterfall may be more comfortable.</p>
-
-            <h3>Question 4: Is time-to-market critical?</h3>
-            <p>Agile can release a Minimum Viable Product (MVP) in weeks. Waterfall waits until everything is complete. If speed matters, choose Agile.</p>
-
-            <h3>Question 5: What is the cost of failure?</h3>
-            <p>For safety-critical systems (medical devices, aircraft control), Waterfall's rigorous documentation and testing may be legally required. For business applications, Agile's flexibility wins.</p>
-
-            <h2>The Hybrid Approach: Waterfall-Scrum</h2>
-            <p>Many organizations don't choose one or the other. They use a hybrid approach:</p>
-            <ul>
-                <li><strong>Waterfall at the top level:</strong> Fixed phases, budgets, and milestones for executives</li>
-                <li><strong>Agile within each phase:</strong> Teams work in sprints to deliver incrementally</li>
-            </ul>
-            <p>This is increasingly common in enterprise environments where governance demands Waterfall artifacts but development teams need Agile flexibility.</p>
-
-            <div class="callout-premium">
-                <i class="fas fa-lightbulb"></i>
-                <p><strong>Key Insight:</strong> The methodology is not the goal. Delivering value to users is the goal. Choose the approach that helps your team do that effectively. Don't become a methodology purist.</p>
-            </div>
-
-            <h2>Real-World Application: My Experience</h2>
-            <p>In my academic projects, I've used both approaches. For my e-commerce platform project, requirements were clear and stable (standard shopping cart functionality), so Waterfall worked well. For my legal document processing system, users didn't know exactly what they needed until they saw prototypes, so I used Agile sprints to iterate based on their feedback.</p>
-            <p>The lesson? Match the methodology to the project, not the other way around.</p>
-
-            <h2>Conclusion</h2>
-            <p>Agile and Waterfall are not enemies. They are tools in your project management toolkit. Waterfall provides structure, predictability, and documentation. Agile provides flexibility, speed, and user feedback. The best project managers know when to use each — and when to blend them.</p>
-            <p>The next time you start a project, don't ask "Which methodology is better?" Ask "Which methodology is better for THIS project, with THESE requirements, THIS team, and THIS organizational culture?"</p>
-            <p>That's how you bridge the gap.</p>
         </div>
-
+        
+        <div class="cons-box">
+            <strong>❌ Waterfall Challenges:</strong>
+            <ul>
+                <li>Users don't see working software until very late</li>
+                <li>Changes are expensive and difficult to accommodate</li>
+                <li>Testing happens at the end, when fixes are most costly</li>
+                <li>Assumes requirements can be perfectly defined upfront</li>
+            </ul>
+        </div>
+        
+        <h2>What is Agile Methodology?</h2>
+        <p>Agile is an iterative approach that delivers working software in small, rapid cycles called "sprints" (typically 1-4 weeks). Instead of planning everything upfront, Agile teams adapt based on feedback and changing requirements.</p>
+        
+        <h3>The Agile Manifesto Values:</h3>
+        <ul>
+            <li><strong>Individuals and interactions</strong> over processes and tools</li>
+            <li><strong>Working software</strong> over comprehensive documentation</li>
+            <li><strong>Customer collaboration</strong> over contract negotiation</li>
+            <li><strong>Responding to change</strong> over following a plan</li>
+        </ul>
+        
+        <h3>Popular Agile Frameworks:</h3>
+        <ul>
+            <li><strong>Scrum</strong> – Uses sprints, daily stand-ups, and defined roles</li>
+            <li><strong>Kanban</strong> – Visualizes workflow on a board and limits work-in-progress</li>
+            <li><strong>Extreme Programming (XP)</strong> – Emphasizes technical excellence</li>
+        </ul>
+        
+        <div class="pros-box">
+            <strong>✅ When Agile Works Best:</strong>
+            <ul>
+                <li>Requirements are uncertain or expected to change</li>
+                <li>You need rapid feedback from users</li>
+                <li>The project is large and complex</li>
+                <li>The team is co-located and collaborative</li>
+                <li>Time-to-market is critical</li>
+            </ul>
+        </div>
+        
+        <div class="cons-box">
+            <strong>❌ Agile Challenges:</strong>
+            <ul>
+                <li>Requires active, ongoing customer involvement</li>
+                <li>Documentation can be lacking (risk for handover)</li>
+                <li>Difficult to predict total timeline and budget</li>
+                <li>Not ideal for fixed-price contracts</li>
+            </ul>
+        </div>
+        
+        <h2>Side-by-Side Comparison</h2>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr><th>Criterion</th><th>Waterfall</th><th>Agile</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Requirements</td><td>Fixed, defined upfront</td><td>Evolving, discovered over time</td></tr>
+                <tr><td>User involvement</td><td>Mainly at beginning and end</td><td>Continuous throughout</td></tr>
+                <tr><td>Delivery</td><td>One final product</td><td>Incremental releases</td></tr>
+                <tr><td>Changes</td><td>Difficult and costly</td><td>Welcomed and expected</td></tr>
+                <tr><td>Documentation</td><td>Comprehensive</td><td>Just enough</td></tr>
+                <tr><td>Testing</td><td>At the end</td><td>Throughout each sprint</td></tr>
+                <tr><td>Best for</td><td>Simple, stable projects</td><td>Complex, uncertain projects</td></tr>
+            </tbody>
+        </table>
+        
+        <h2>Making the Right Choice: A Decision Framework</h2>
+        <p>After studying both methodologies, here is a simple decision framework:</p>
+        
+        <div class="decision-flow">
+            <span class="flow-step">📋 Clear requirements?</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">✅ YES → Waterfall</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">❌ NO → Agile</span>
+        </div>
+        
+        <p>But it's rarely that simple. Here are five key questions to ask:</p>
+        
+        <h3>1. How well do you understand the requirements?</h3>
+        <p>If you can document 80-100% of requirements upfront and they're unlikely to change, Waterfall is viable. If requirements are fuzzy or will evolve as users see the product, Agile is your answer.</p>
+        
+        <h3>2. What is your team's size and location?</h3>
+        <p>Waterfall works well with distributed teams because communication happens through documentation. Agile requires frequent communication, making co-located teams more successful.</p>
+        
+        <h3>3. What is your organizational culture?</h3>
+        <p>Traditional, process-heavy organizations often struggle with Agile. If your stakeholders demand detailed upfront plans and fixed budgets, Waterfall may be more comfortable.</p>
+        
+        <h3>4. Is time-to-market critical?</h3>
+        <p>Agile can release a Minimum Viable Product (MVP) in weeks. Waterfall waits until everything is complete. If speed matters, choose Agile.</p>
+        
+        <h3>5. What is the cost of failure?</h3>
+        <p>For safety-critical systems (medical devices, aircraft control), Waterfall's rigorous documentation and testing may be legally required. For business applications, Agile's flexibility wins.</p>
+        
+        <h2>The Hybrid Approach</h2>
+        <p>Many organizations don't choose one or the other. They use a hybrid approach:</p>
+        <ul>
+            <li><strong>Waterfall at the top level:</strong> Fixed phases, budgets, and milestones for executives</li>
+            <li><strong>Agile within each phase:</strong> Teams work in sprints to deliver incrementally</li>
+        </ul>
+        
+        <div class="callout">
+            <strong>💡 Key Insight:</strong> The methodology is not the goal. Delivering value to users is the goal. Choose the approach that helps your team do that effectively. Don't become a methodology purist.
+        </div>
+        
+        <h2>Real-World Application: My Experience</h2>
+        <p>In my academic projects, I've used both approaches. For my e-commerce platform project, requirements were clear and stable, so Waterfall worked well. For my legal document processing system, users didn't know exactly what they needed until they saw prototypes, so I used Agile sprints to iterate based on their feedback.</p>
+        <p>The lesson? Match the methodology to the project, not the other way around.</p>
+        
+        <h2>Conclusion</h2>
+        <p>Agile and Waterfall are not enemies. They are tools in your project management toolkit. Waterfall provides structure, predictability, and documentation. Agile provides flexibility, speed, and user feedback. The best project managers know when to use each — and when to blend them.</p>
+        <p>The next time you start a project, don't ask "Which methodology is better?" Ask "Which methodology is better for THIS project, with THESE requirements, THIS team, and THIS organizational culture?"</p>
+        <p>That's how you bridge the gap.</p>
+        
         <!-- Author Bio -->
-        <div class="author-bio-premium">
+        <div class="author-bio">
             <div class="author-avatar">EC</div>
             <div class="author-info">
                 <h4>Edwell Chinyepera</h4>
                 <p>Information Systems Professional | Data & Systems Analyst</p>
-                <p style="font-size: 0.85rem; margin-top: 0.3rem;">Passionate about aligning technology with business strategy and helping teams deliver better software.</p>
+                <p style="font-size: 0.75rem; margin-top: 0.2rem;">Passionate about aligning technology with business strategy.</p>
             </div>
         </div>
-
+        
         <!-- Footer -->
-        <div class="article-footer">
-            <p>© 2025 Edwell Chinyepera. All rights reserved.</p>
-        </div>
-    </div>
-
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </div>
-
-    <script>
-        // Back to top button functionality
-        const backToTop = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+        <footer>
+            © 2026 Edwell Chinyepera. All Rights Reserved.
+        </footer>
+    </main>
 </body>
 </html>
