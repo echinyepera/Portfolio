@@ -1,1 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A practical guide to understanding database normalization - from 1NF to 3NF with real-world examples." />
+    <title>Database Normalization Explained | Edwell Chinyepera</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --man-city-blue: #6CABDD;
+            --man-city-blue-light: #8FC4E8;
+            --man-city-blue-very-light: #E8F1F8;
+            --text-dark: #1e2a3a;
+            --text-muted: #475569;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E8F1F8, #D4E6F3);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .background-blur {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.35), transparent 55%),
+                        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.4), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .article-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+        }
+
+        .category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: var(--man-city-blue-very-light);
+            border: 1px solid var(--man-city-blue-light);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--man-city-blue);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--man-city-blue), #3a7ca5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin: 1.5rem 0 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta i {
+            color: var(--man-city-blue);
+            margin-right: 0.3rem;
+        }
+
+        .featured-image {
+            margin: 1.5rem 0 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .article-content p {
+            margin-bottom: 1.2rem;
+            color: #1e293b;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #0f172a;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: #2563eb;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 0 0 1.2rem 1.8rem;
+            color: #1e293b;
+        }
+
+        .article-content li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Table styling for database examples */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem;
+            background: #0f172a;
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .bad-denormalized {
+            background-color: #fee2e2;
+        }
+
+        .bad-denormalized td {
+            background-color: #fee2e2;
+        }
+
+        .good-normalized {
+            background-color: #dcfce7;
+        }
+
+        .good-normalized td {
+            background-color: #dcfce7;
+        }
+
+        .nf-box {
+            background: #f1f5f9;
+            border-left: 4px solid var(--man-city-blue);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .nf-box strong {
+            color: var(--man-city-blue);
+        }
+
+        .callout-simple {
+            margin: 1.5rem 0;
+            padding: 0.5rem 0 0.5rem 1.2rem;
+            border-left: 3px solid #3b82f6;
+            background: #f0f9ff;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .author-bio {
+            margin: 3rem 0 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .author-info h4 {
+            margin: 0 0 0.2rem;
+            font-size: 1rem;
+            color: #0f172a;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-back, .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #65a30d;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-top {
+            background: transparent;
+            color: #65a30d;
+            border-color: rgba(148, 163, 184, 0.6);
+        }
+
+        .btn-top:hover {
+            background: #f1f5f9;
+            border-color: var(--man-city-blue);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .article-wrapper {
+                padding: 1.5rem 1rem;
+            }
+            .article-card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            .data-table {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blur"></div>
+
+    <div class="article-wrapper">
+        <div class="article-card">
+            <!-- Category -->
+            <div class="category">
+                <i class="fas fa-database"></i> Database Design
+            </div>
+
+            <!-- Title -->
+            <h1>Database Normalization Explained: From Messy Tables to Clean Data</h1>
+
+            <!-- Meta -->
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> May 1, 2025</span>
+                <span><i class="far fa-clock"></i> 7 min read</span>
+                <span><i class="fas fa-tag"></i> SQL / Database</span>
+            </div>
+
+            <!-- Featured Image -->
+            <div class="featured-image">
+                <img src="images/database-normalization.jpg" alt="Database normalization diagram">
+            </div>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <p>Have you ever opened a spreadsheet or database table and felt overwhelmed by repeated data, empty cells, and confusing columns? That's what we call a <strong>denormalized</strong> database — and it's a nightmare to maintain.</p>
+                
+                <p>Database normalization is the process of organizing data to reduce redundancy and improve integrity. Think of it as decluttering your closet: everything has its place, nothing is duplicated, and finding what you need becomes easy.</p>
+                
+                <p>In this article, I'll explain normalization from scratch using a real-world example — a university course registration system — and walk through First Normal Form (1NF), Second Normal Form (2NF), and Third Normal Form (3NF).</p>
+                
+                <h2>The Problem: A Messy Student Table</h2>
+                <p>Imagine we have a table tracking which courses students are taking:</p>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr><th>StudentID</th><th>StudentName</th><th>Course</th><th>Instructor</th><th>InstructorOffice</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>101</td><td>Alice</td><td>Database Design, Python Programming</td><td>Dr. Smith, Prof. Jones</td><td>Room 101, Room 202</td></tr>
+                        <tr><td>102</td><td>Bob</td><td>Database Design</td><td>Dr. Smith</td><td>Room 101</td></tr>
+                        <tr><td>101</td><td>Alice</td><td>Web Development</td><td>Prof. Brown</td><td>Room 303</td></tr>
+                    </tbody>
+                </table>
+                
+                <p><strong>What's wrong here?</strong> Let me count the problems:</p>
+                <ul>
+                    <li><strong>Repeated data:</strong> Alice's name appears twice</li>
+                    <li><strong>Multiple values in one cell:</strong> "Database Design, Python Programming" in the Course column</li>
+                    <li><strong>Update anomalies:</strong> If Dr. Smith moves offices, we must update multiple rows</li>
+                    <li><strong>Delete anomalies:</strong> If Bob drops his only course, we lose his information entirely</li>
+                    <li><strong>Insert anomalies:</strong> We can't add a new course without a student enrolled</li>
+                </ul>
+                
+                <div class="callout-simple">
+                    <strong>🎯 Goal of Normalization:</strong> Eliminate these anomalies by breaking one big table into smaller, related tables.
+                </div>
+                
+                <h2>First Normal Form (1NF) — Atomic Values</h2>
+                <p><strong>The rule:</strong> Each column must contain only one value per row (no lists or arrays).</p>
+                
+                <p><strong>The fix:</strong> Split the multi-valued columns into separate rows.</p>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr><th>StudentID</th><th>StudentName</th><th>Course</th><th>Instructor</th><th>InstructorOffice</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>101</td><td>Alice</td><td>Database Design</td><td>Dr. Smith</td><td>Room 101</td></tr>
+                        <tr><td>101</td><td>Alice</td><td>Python Programming</td><td>Prof. Jones</td><td>Room 202</td></tr>
+                        <tr><td>102</td><td>Bob</td><td>Database Design</td><td>Dr. Smith</td><td>Room 101</td></tr>
+                        <tr><td>101</td><td>Alice</td><td>Web Development</td><td>Prof. Brown</td><td>Room 303</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="nf-box">
+                    <strong>✅ 1NF Achieved:</strong> Every cell now has a single value. But we still have redundancy — Alice's name is repeated across rows.
+                </div>
+                
+                <h2>Second Normal Form (2NF) — No Partial Dependencies</h2>
+                <p><strong>The rule:</strong> Every non-key column must depend on the ENTIRE primary key, not just part of it.</p>
+                
+                <p><strong>First, identify the primary key:</strong> In our table, a single row is uniquely identified by <code>(StudentID + Course)</code> — a composite key.</p>
+                
+                <p><strong>The problem:</strong> <code>StudentName</code> depends only on <code>StudentID</code> (not on Course). <code>InstructorOffice</code> depends only on <code>Instructor</code>.</p>
+                
+                <p><strong>The fix:</strong> Split into separate tables based on what depends on what.</p>
+                
+                <p><strong>Table 1: Students</strong></p>
+                <table class="data-table">
+                    <thead><tr><th>StudentID</th><th>StudentName</th></tr></thead>
+                    <tbody><tr><td>101</td><td>Alice</td></tr><tr><td>102</td><td>Bob</td></tr></tbody>
+                </table>
+                
+                <p><strong>Table 2: Courses</strong></p>
+                <table class="data-table">
+                    <thead><tr><th>Course</th><th>Instructor</th></tr></thead>
+                    <tbody><tr><td>Database Design</td><td>Dr. Smith</td></tr><tr><td>Python Programming</td><td>Prof. Jones</td></tr><tr><td>Web Development</td><td>Prof. Brown</td></tr></tbody>
+                </table>
+                
+                <p><strong>Table 3: Instructors</strong></p>
+                <table class="data-table">
+                    <thead><tr><th>Instructor</th><th>InstructorOffice</th></tr></thead>
+                    <tbody><tr><td>Dr. Smith</td><td>Room 101</td></tr><tr><td>Prof. Jones</td><td>Room 202</td></tr><tr><td>Prof. Brown</td><td>Room 303</td></tr></tbody>
+                </table>
+                
+                <p><strong>Table 4: Enrollments (connects students to courses)</strong></p>
+                <table class="data-table">
+                    <thead><tr><th>StudentID</th><th>Course</th></tr></thead>
+                    <tbody><tr><td>101</td><td>Database Design</td></tr><tr><td>101</td><td>Python Programming</td></tr><tr><td>102</td><td>Database Design</td></tr><tr><td>101</td><td>Web Development</td></tr></tbody>
+                </table>
+                
+                <div class="nf-box">
+                    <strong>✅ 2NF Achieved:</strong> Each table now has a single purpose. No more partial dependencies.
+                </div>
+                
+                <h2>Third Normal Form (3NF) — No Transitive Dependencies</h2>
+                <p><strong>The rule:</strong> Non-key columns cannot depend on other non-key columns (they must depend ONLY on the primary key).</p>
+                
+                <p><strong>The problem:</strong> In our Courses table, <code>InstructorOffice</code> depends on <code>Instructor</code>, which depends on <code>Course</code>. That's a transitive dependency: Course → Instructor → Office.</p>
+                
+                <p><strong>The fix:</strong> Remove any column that doesn't directly depend on the primary key.</p>
+                
+                <p><strong>Final Tables:</strong></p>
+                
+                <p><strong>Students</strong> (StudentID → StudentName)</p>
+                <p><strong>Courses</strong> (Course → Instructor only — no office here)</p>
+                <p><strong>Instructors</strong> (Instructor → InstructorOffice)</p>
+                <p><strong>Enrollments</strong> (StudentID + Course)</p>
+                
+                <div class="nf-box">
+                    <strong>✅ 3NF Achieved:</strong> Every non-key column depends ONLY on the primary key. No transitive dependencies remain.
+                </div>
+                
+                <h2>Beyond 3NF (When to Stop Normalizing)</h2>
+                <p>There are higher normal forms (BCNF, 4NF, 5NF), but in practice, <strong>most databases stop at 3NF</strong>. Why?</p>
+                
+                <ul>
+                    <li>Higher normal forms offer diminishing returns for most applications</li>
+                    <li>Sometimes you <strong>de-normalize</strong> intentionally for performance (fewer joins = faster queries)</li>
+                    <li>Analytical databases (data warehouses) often use star schemas with intentional redundancy</li>
+                </ul>
+                
+                <div class="callout-simple">
+                    <strong>💡 Rule of Thumb:</strong> Normalize to 3NF for transactional (OLTP) databases. For reporting/analytics, selective denormalization is fine.
+                </div>
+                
+                <h2>Practical Example: When Denormalization Makes Sense</h2>
+                <p>Imagine an e-commerce website showing order history. A fully normalized design would require joining 4-5 tables for every page load. Instead, many systems store a denormalized "Orders" table with pre-joined data for fast reading.</p>
+                
+                <p><strong>Trade-off:</strong>
+                <ul>
+                    <li><strong>Normalized:</strong> Easier to update, less storage, no redundancy (good for writes)</li>
+                    <li><strong>Denormalized:</strong> Faster reads, simpler queries (good for analytics)</li>
+                </ul>
+                </p>
+                
+                <h2>Quick Reference: Normal Forms Summary</h2>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Normal Form</th><th>Rule</th><th>Fixes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>1NF</strong></td><td>Atomic values (one value per cell)</td><td>Repeating groups, arrays in columns</td></tr>
+                        <tr><td><strong>2NF</strong></td><td>No partial dependencies</td><td>Data repeated across rows unnecessarily</td></tr>
+                        <tr><td><strong>3NF</strong></td><td>No transitive dependencies</td><td>Columns that depend on other non-key columns</td></tr>
+                    </tbody>
+                </table>
+                
+                <h2>Real-World Application: My Experience with AgriTrace</h2>
+                <p>When designing the database for AgriTrace, normalization was critical. The system tracks manufacturers, products, batches, product codes, and verifications. Without proper normalization:</p>
+                <ul>
+                    <li>A manufacturer's contact info would repeat for every product code</li>
+                    <li>Updating a batch expiry date would require updating thousands of code records</li>
+                    <li>Analytics on counterfeit hotspots would be slow and error-prone</li>
+                </ul>
+                <p>By normalizing to 3NF, I ensured data integrity, easier maintenance, and efficient querying for the manufacturer dashboards.</p>
+                
+                <h2>Conclusion</h2>
+                <p>Database normalization is not just an academic exercise — it's a practical skill that saves you from data nightmares. Start with 1NF (atomic values), progress to 2NF (remove partial dependencies), and finish with 3NF (remove transitive dependencies).</p>
+                
+                <p>And remember: normalization is a tool, not a religion. Know the rules, then know when to break them for performance.</p>
+                
+                <p>Your future self (and your database) will thank you.</p>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="author-bio">
+                <div class="author-avatar">EC</div>
+                <div class="author-info">
+                    <h4>Edwell Chinyepera</h4>
+                    <p>Information Systems Professional | Data & Systems Analyst</p>
+                    <p style="font-size: 0.75rem; margin-top: 0.2rem;">Passionate about clean data and efficient databases.</p>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <a href="index.html#blog" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Portfolio
+                </a>
+                <a href="#" class="btn-top" id="backToTopBtn">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                © 2026 Edwell Chinyepera. All Rights Reserved.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
