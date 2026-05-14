@@ -1,1 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Exploring the fundamental concepts of business intelligence and data analytics, and how organizations can foster a culture of evidence-based management." />
+    <title>Data-Driven Decision Making | Edwell Chinyepera</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --man-city-blue: #6CABDD;
+            --man-city-blue-light: #8FC4E8;
+            --man-city-blue-very-light: #E8F1F8;
+            --text-dark: #1e2a3a;
+            --text-muted: #475569;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E8F1F8, #D4E6F3);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .background-blur {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.35), transparent 55%),
+                        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.4), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .article-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+        }
+
+        .category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: var(--man-city-blue-very-light);
+            border: 1px solid var(--man-city-blue-light);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--man-city-blue);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--man-city-blue), #3a7ca5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin: 1.5rem 0 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta i {
+            color: var(--man-city-blue);
+            margin-right: 0.3rem;
+        }
+
+        .featured-image {
+            margin: 1.5rem 0 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .article-content p {
+            margin-bottom: 1.2rem;
+            color: #1e293b;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #0f172a;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: #2563eb;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 0 0 1.2rem 1.8rem;
+            color: #1e293b;
+        }
+
+        .article-content li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Data Maturity Model */
+        .maturity-model {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            margin: 2rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .maturity-level {
+            flex: 1;
+            padding: 1.2rem;
+            text-align: center;
+            background: #f1f5f9;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .maturity-level:last-child {
+            border-right: none;
+        }
+
+        .maturity-level h4 {
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .maturity-level p {
+            font-size: 0.7rem;
+            margin-bottom: 0;
+        }
+
+        .level-1 { background: #fee2e2; }
+        .level-2 { background: #fed7aa; }
+        .level-3 { background: #fde68a; }
+        .level-4 { background: #d9f99d; }
+        .level-5 { background: #bbf7d0; }
+
+        /* Pyramid container */
+        .pyramid {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .pyramid-level {
+            margin: 0 auto;
+            padding: 0.8rem;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .pyramid-level-1 { width: 100%; background: #bbf7d0; border-radius: 8px 8px 0 0; }
+        .pyramid-level-2 { width: 85%; background: #d9f99d; }
+        .pyramid-level-3 { width: 70%; background: #fde68a; }
+        .pyramid-level-4 { width: 55%; background: #fed7aa; }
+        .pyramid-level-5 { width: 40%; background: #fee2e2; border-radius: 0 0 8px 8px; }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: #f1f5f9;
+            padding: 1.2rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--man-city-blue);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        .callout-simple {
+            margin: 1.5rem 0;
+            padding: 0.5rem 0 0.5rem 1.2rem;
+            border-left: 3px solid #3b82f6;
+            background: #f0f9ff;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .author-bio {
+            margin: 3rem 0 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .author-info h4 {
+            margin: 0 0 0.2rem;
+            font-size: 1rem;
+            color: #0f172a;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-back, .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #65a30d;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-top {
+            background: transparent;
+            color: #65a30d;
+            border-color: rgba(148, 163, 184, 0.6);
+        }
+
+        .btn-top:hover {
+            background: #f1f5f9;
+            border-color: var(--man-city-blue);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .article-wrapper {
+                padding: 1.5rem 1rem;
+            }
+            .article-card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            .maturity-model {
+                flex-direction: column;
+            }
+            .maturity-level {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blur"></div>
+
+    <div class="article-wrapper">
+        <div class="article-card">
+            <!-- Category -->
+            <div class="category">
+                <i class="fas fa-chart-pie"></i> Data & Analytics
+            </div>
+
+            <!-- Title -->
+            <h1>Data-Driven Decision Making: A Primer</h1>
+
+            <!-- Meta -->
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> April 20, 2025</span>
+                <span><i class="far fa-clock"></i> 6 min read</span>
+                <span><i class="fas fa-tag"></i> Business Intelligence</span>
+            </div>
+
+            <!-- Featured Image -->
+            <div class="featured-image">
+                <img src="images/Brighter Filing.jpg" alt="Data analytics dashboard and charts">
+            </div>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <p>Every day, your organization generates massive amounts of data — customer transactions, website visits, inventory levels, employee performance, social media interactions, and more. But data alone is worthless. The real value comes from turning that data into decisions.</p>
+                
+                <p>This is the essence of data-driven decision making (DDDM): using facts, metrics, and analytics to guide business strategy rather than relying on intuition, gut feeling, or "the way we've always done it."</p>
+                
+                <p>In this primer, I'll explore the fundamental concepts of business intelligence and data analytics, and provide a roadmap for organizations looking to foster a culture of evidence-based management.</p>
+                
+                <h2>The State of Data-Driven Decision Making</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">2.5</div>
+                        <div class="stat-label">Quintillion bytes of data created daily</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">91%</div>
+                        <div class="stat-label">of organizations have invested in AI and data initiatives</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5x</div>
+                        <div class="stat-label">Faster decision making in data-driven organizations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">6%</div>
+                        <div class="stat-label">of companies are fully data-driven (most are still early)</div>
+                    </div>
+                </div>
+                
+                <p>The opportunity is enormous, but so is the gap. Most organizations collect data. Few actually use it effectively.</p>
+                
+                <h2>Core Concepts: BI vs. Data Analytics</h2>
+                <p>These terms are often used interchangeably, but they have distinct meanings:</p>
+                
+                <h3>Business Intelligence (BI)</h3>
+                <p>BI focuses on <strong>what happened</strong> and <strong>what is happening now</strong>. It answers descriptive questions like "Which products sold best last quarter?" or "What is our current inventory level?" BI is about monitoring, reporting, and dashboards.</p>
+                
+                <h3>Data Analytics</h3>
+                <p>Data analytics goes further. It answers <strong>why something happened</strong>, <strong>what will happen</strong>, and <strong>what should we do about it</strong>. Analytics includes diagnostic, predictive, and prescriptive analysis.</p>
+                
+                <div class="pyramid">
+                    <div class="pyramid-level pyramid-level-5">
+                        <strong>Prescriptive Analytics</strong><br>What should we do?
+                    </div>
+                    <div class="pyramid-level pyramid-level-4">
+                        <strong>Predictive Analytics</strong><br>What will happen?
+                    </div>
+                    <div class="pyramid-level pyramid-level-3">
+                        <strong>Diagnostic Analytics</strong><br>Why did it happen?
+                    </div>
+                    <div class="pyramid-level pyramid-level-2">
+                        <strong>Descriptive Analytics</strong><br>What happened?
+                    </div>
+                    <div class="pyramid-level pyramid-level-1">
+                        <strong>Reporting / Monitoring</strong><br>What is happening now?
+                    </div>
+                </div>
+                
+                <h2>Types of Analytics Explained</h2>
+                
+                <h3>1. Descriptive Analytics (What happened?)</h3>
+                <p>This is the foundation. Descriptive analytics summarizes historical data to answer questions like: "How many units did we sell last month?" or "What is our customer retention rate?" Think dashboards, reports, and scorecards.</p>
+                
+                <h3>2. Diagnostic Analytics (Why did it happen?)</h3>
+                <p>This digs deeper. Diagnostic analytics explores relationships and patterns to understand causes. For example: "Why did sales drop in March?" or "What factors are driving customer churn?" Techniques include drill-down, data mining, and correlation analysis.</p>
+                
+                <h3>3. Predictive Analytics (What will happen?)</h3>
+                <p>This looks forward. Predictive analytics uses statistical models and machine learning to forecast future outcomes. Examples: "Which customers are likely to churn next month?" or "What will demand be for next quarter?"</p>
+                
+                <h3>4. Prescriptive Analytics (What should we do?)</h3>
+                <p>This recommends action. Prescriptive analytics goes beyond prediction to suggest optimal decisions. Examples: "What price should we set to maximize profit?" or "Which inventory levels minimize cost while maintaining service levels?"</p>
+                
+                <div class="callout-simple">
+                    <strong>💡 Key Insight:</strong> Most organizations never move beyond descriptive analytics. The real competitive advantage comes from predictive and prescriptive capabilities.
+                </div>
+                
+                <h2>The Data Maturity Model</h2>
+                <p>Organizations typically progress through five stages of data maturity:</p>
+                
+                <div class="maturity-model">
+                    <div class="maturity-level level-1">
+                        <h4>Level 1: Aware</h4>
+                        <p>We know we have data but don't use it systematically</p>
+                    </div>
+                    <div class="maturity-level level-2">
+                        <h4>Level 2: Reactive</h4>
+                        <p>We use data to explain what happened (after the fact)</p>
+                    </div>
+                    <div class="maturity-level level-3">
+                        <h4>Level 3: Proactive</h4>
+                        <p>We use data to monitor what is happening (real-time)</p>
+                    </div>
+                    <div class="maturity-level level-4">
+                        <h4>Level 4: Predictive</h4>
+                        <p>We use data to forecast what will happen</p>
+                    </div>
+                    <div class="maturity-level level-5">
+                        <h4>Level 5: Prescriptive</h4>
+                        <p>We use data to recommend optimal actions</p>
+                    </div>
+                </div>
+                
+                <h2>Building a Data-Driven Culture</h2>
+                <p>Technology is only part of the equation. The hardest part is changing how people think and work. Here are five principles for fostering a data-driven culture:</p>
+                
+                <h3>1. Start with Questions, Not Data</h3>
+                <p>Too many organizations collect data and then ask "what can we do with this?" The better approach: start with business questions, then find the data to answer them. What decisions do we need to make? What information would make those decisions better?</p>
+                
+                <h3>2. Democratize Access, Not Just Data</h3>
+                <p>Giving everyone access to dashboards isn't enough. People need the skills to interpret data, ask good questions, and avoid common pitfalls like confirmation bias or correlation vs. causation errors. Invest in data literacy training.</p>
+                
+                <h3>3. Embrace Experimentation</h3>
+                <p>A/B testing shouldn't be limited to marketing. Test everything — pricing, product features, customer service scripts, even meeting formats. Let data, not hierarchy, determine what works.</p>
+                
+                <h3>4. Reward Curiosity, Not Just Correctness</h3>
+                <p>In a data-driven culture, people should be rewarded for asking good questions and challenging assumptions — even if the answer turns out to be "we were wrong." Fear of being wrong kills data-driven decision making.</p>
+                
+                <h3>5. Lead from the Top</h3>
+                <p>If executives make decisions based on gut feeling or politics, no amount of dashboards will change the culture. Leaders must model data-driven behavior: asking for evidence, admitting when they were wrong, and celebrating data-informed wins.</p>
+                
+                <div class="callout-simple">
+                    <strong>📌 Warning:</strong> Data is not a replacement for judgment. The goal is to inform decisions, not automate them. Human context, ethics, and strategic nuance still matter.
+                </div>
+                
+                <h2>Common Pitfalls to Avoid</h2>
+                
+                <h3>Pitfall 1: Confusing Correlation with Causation</h3>
+                <p>Just because two things happen together doesn't mean one causes the other. Example: Ice cream sales and drowning incidents both increase in summer, but ice cream doesn't cause drowning. The hidden variable is hot weather.</p>
+                
+                <h3>Pitfall 2: Confirmation Bias</h3>
+                <p>We tend to seek out data that confirms what we already believe and ignore data that contradicts us. This is why blind analysis (not knowing what you're looking for) is sometimes valuable.</p>
+                
+                <h3>Pitfall 3: Analysis Paralysis</h3>
+                <p>Waiting for perfect data leads to no decisions. At some point, you have to act with the best available information and learn from the outcomes.</p>
+                
+                <h3>Pitfall 4: Vanity Metrics</h3>
+                <p>Not all data is equally valuable. Vanity metrics make you feel good but don't drive action. Example: "We have 10,000 social media followers" sounds impressive, but how many actually buy your product? Focus on actionable metrics.</p>
+                
+                <h2>Getting Started: A Simple Roadmap</h2>
+                
+                <h3>Step 1: Identify Key Decisions</h3>
+                <p>What are the 5-10 most important decisions your team or organization makes regularly? List them.</p>
+                
+                <h3>Step 2: Determine What Data You Need</h3>
+                <p>For each decision, ask: "What information would make this decision better?" Then, do you have that data? If not, how can you get it?</p>
+                
+                <h3>Step 3: Build the Foundation</h3>
+                <p>This means clean, reliable, accessible data. Invest in data governance, quality controls, and basic infrastructure before diving into advanced analytics.</p>
+                
+                <h3>Step 4: Start Small, Then Scale</h3>
+                <p>Don't try to boil the ocean. Pick one decision, one team, or one business unit. Show success. Then expand.</p>
+                
+                <h3>Step 5: Close the Loop</h3>
+                <p>Track whether data-driven decisions actually led to better outcomes. Learn from both successes and failures. Iterate.</p>
+                
+                <h2>Real-World Application</h2>
+                <p>In my work, I've seen the power of data-driven decision making firsthand. In a recent project analyzing agricultural input verification data, simple descriptive analytics revealed counterfeit hotspots. Predictive models could help manufacturers anticipate where counterfeits might appear next. And prescriptive analytics could recommend where to deploy enforcement resources for maximum impact.</p>
+                
+                <p>The data exists. The question is whether we have the will and skill to use it.</p>
+                
+                <h2>Conclusion</h2>
+                <p>Data-driven decision making is not about replacing human judgment with algorithms. It's about augmenting judgment with evidence. It's about moving from "I think" to "the data suggests." It's about fostering a culture where curiosity is rewarded, assumptions are challenged, and decisions are constantly improved.</p>
+                
+                <p>The organizations that thrive in the coming decade won't just be the ones with the most data. They'll be the ones with the discipline to use it well.</p>
+                
+                <p>Start where you are. Use what you have. Do what you can. And always ask: "What does the data say?"</p>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="author-bio">
+                <div class="author-avatar">EC</div>
+                <div class="author-info">
+                    <h4>Edwell Chinyepera</h4>
+                    <p>Information Systems Professional | Data & Systems Analyst</p>
+                    <p style="font-size: 0.75rem; margin-top: 0.2rem;">Passionate about turning data into decisions.</p>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <a href="index.html#blog" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Portfolio
+                </a>
+                <a href="#" class="btn-top" id="backToTopBtn">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                © 2026 Edwell Chinyepera. All Rights Reserved.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
