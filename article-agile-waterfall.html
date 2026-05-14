@@ -21,21 +21,22 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.2);
+             :root {
+            --man-city-blue: #6CABDD;
+            --man-city-blue-light: #8FC4E8;
+            --man-city-blue-very-light: #E8F1F8;
+            --text-dark: #1e2a3a;
+            --text-muted: #475569;
+            --white: #ffffff;
+            --border-light: #e2e8f0;
             --transition: all 0.3s ease;
         }
 
-        body {
+             body {
             font-family: "Montserrat", sans-serif;
             min-height: 100vh;
-            background: radial-gradient(circle at top left, #1d3557, #020617);
-            color: #e5e7eb;
+            background: linear-gradient(135deg, #E8F1F8, #D4E6F3);
+            color: var(--text-dark);
             line-height: 1.7;
         }
 
@@ -57,52 +58,57 @@
             padding: 3rem 2rem;
         }
 
-        .article-card {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95));
+              .article-card {
+            background: var(--white);
             border-radius: 28px;
             padding: 2.5rem;
-            border: 1px solid rgba(148, 163, 184, 0.25);
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(18px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
         }
 
         /* Category Tag - Same as your "eyebrow" */
-        .category {
+            .category {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.35rem 0.9rem;
             border-radius: 999px;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(148, 163, 184, 0.3);
+            background: var(--man-city-blue-very-light);
+            border: 1px solid var(--man-city-blue-light);
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.09em;
-            color: #9ca3af;
+            color: var(--man-city-blue);
+            font-weight: 600;
             margin-bottom: 1.5rem;
         }
 
         /* Title - Same gradient as your portfolio */
-        h1 {
+             h1 {
             font-size: clamp(2rem, 4vw, 2.8rem);
             line-height: 1.2;
             margin-bottom: 1rem;
-            background: linear-gradient(120deg, #60a5fa, #a5b4fc);
+            background: linear-gradient(135deg, var(--man-city-blue), #3a7ca5);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
         /* Article Meta */
-        .article-meta {
+             .article-meta {
             display: flex;
             flex-wrap: wrap;
             gap: 1.25rem;
             margin: 1.5rem 0 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+            border-bottom: 1px solid var(--border-light);
             font-size: 0.85rem;
-            color: #9ca3af;
+            color: var(--text-muted);
+        }
+
+        .article-meta i {
+            color: var(--man-city-blue);
+            margin-right: 0.3rem;
         }
 
         .article-meta i {
