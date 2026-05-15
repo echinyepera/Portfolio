@@ -1423,27 +1423,33 @@
             </div>
 
             <!-- Project 7: AgriTrace (Confidential - Curiosity Driver) -->
-            <div class="project-card" data-category="web" data-aos="fade-up">
-                <img src="images/agritrace-thumbnail.jpg" alt="AgriTrace" class="project-img" />
-                <div class="project-info">
-                    <h3>🌾 AgriTrace</h3>
-                    <p>A mobile-based system solving a $5M+ problem in Zimbabwe's agricultural sector. <strong>Final Year Project.</strong></p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python/Django</span>
-                        <span class="tech-tag">USSD</span>
-                        <span class="tech-tag">PostgreSQL/PostGIS</span>
-                    </div>
-                    <div class="project-links">
-                        <span style="color:#6CABDD; cursor: pointer;" onclick="alert('Contact me for details. Available under NDA.')">
-                            <i class="fas fa-info-circle"></i> Ask me how it works →
-                        </span>
-                    </div>
-                </div>
-            </div>
-
+<div class="project-card" data-category="web" data-aos="fade-up">
+    <img src="images/agritrace-thumbnail.jpg" alt="AgriTrace" class="project-img" />
+    <div class="project-info">
+        <h3>🌾 AgriTrace</h3>
+        <p>A mobile-based system solving a $5M+ problem in Zimbabwe's agricultural sector. <strong>Final Year Project.</strong></p>
+        <div class="project-tech">
+            <span class="tech-tag">Python/Django</span>
+            <span class="tech-tag">USSD</span>
+            <span class="tech-tag">PostgreSQL/PostGIS</span>
+        </div>
+        <div class="project-links">
+            <a href="#" style="color:#6CABDD; text-decoration:none;" onclick="showNDAWarning(); return false;">
+                <i class="fas fa-envelope"></i> Ask me how it works →
+            </a>
         </div>
     </div>
-</section>
+</div>
+        </section>
+
+<script>
+function showNDAWarning() {
+    let agree = confirm("⚠️ CONFIDENTIALITY NOTICE:\n\nAgriTrace is proprietary work. By proceeding, you agree that any information shared will remain confidential and will not be reproduced or shared without written permission.\n\nClick OK to continue to email.");
+    if (agree) {
+        window.location.href = "mailto:edwellchinyepera@gmail.com?subject=AgriTrace%20Inquiry&body=Hi%20Edwell,%20I%27m%20interested%20in%20learning%20more%20about%20AgriTrace.%20I%20understand%20the%20information%20is%20confidential.";
+    }
+}
+</script>
 
     <!-- Blog/Posts Section -->
     <section id="blog">
